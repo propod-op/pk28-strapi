@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fish_types",
+  "info": {
+    "singularName": "fish-type",
+    "pluralName": "fish-types",
+    "displayName": "fishType",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "typeName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "subTypeName": {
+      "type": "string"
+    }
+  }
+}

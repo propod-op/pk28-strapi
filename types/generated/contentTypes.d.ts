@@ -788,6 +788,154 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiFishFish extends Schema.CollectionType {
+  collectionName: 'fishes';
+  info: {
+    singularName: 'fish';
+    pluralName: 'fishes';
+    displayName: 'fish';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    stock: Attribute.Integer;
+    price: Attribute.Decimal;
+    stockDate: Attribute.Date;
+    images: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    description: Attribute.Text;
+    title: Attribute.String;
+    disponible: Attribute.Boolean;
+    vendu: Attribute.Boolean & Attribute.DefaultTo<false>;
+    fishFamily: Attribute.Relation<
+      'api::fish.fish',
+      'oneToOne',
+      'api::race.race'
+    >;
+    vendeur: Attribute.String;
+    eleveur: Attribute.String;
+    fishColors: Attribute.Relation<
+      'api::fish.fish',
+      'oneToMany',
+      'api::fish-colors.fish-colors'
+    >;
+    fishType: Attribute.Relation<
+      'api::fish.fish',
+      'oneToOne',
+      'api::fish-type.fish-type'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::fish.fish', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::fish.fish', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiFishColorsFishColors extends Schema.CollectionType {
+  collectionName: 'fish_all_colors';
+  info: {
+    singularName: 'fish-colors';
+    pluralName: 'fish-all-colors';
+    displayName: 'FishColors';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    hexaValue: Attribute.String;
+    description: Attribute.String;
+    fish: Attribute.Relation<
+      'api::fish-colors.fish-colors',
+      'manyToOne',
+      'api::fish.fish'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::fish-colors.fish-colors',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::fish-colors.fish-colors',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiFishTypeFishType extends Schema.CollectionType {
+  collectionName: 'fish_types';
+  info: {
+    singularName: 'fish-type';
+    pluralName: 'fish-types';
+    displayName: 'fishType';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    typeName: Attribute.String;
+    description: Attribute.Text;
+    subTypeName: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::fish-type.fish-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::fish-type.fish-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRaceRace extends Schema.CollectionType {
+  collectionName: 'races';
+  info: {
+    singularName: 'race';
+    pluralName: 'races';
+    displayName: 'fishFamily';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.Text;
+    fishType: Attribute.Relation<
+      'api::race.race',
+      'oneToOne',
+      'api::fish-type.fish-type'
+    >;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::race.race', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::race.race', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -806,6 +954,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::fish.fish': ApiFishFish;
+      'api::fish-colors.fish-colors': ApiFishColorsFishColors;
+      'api::fish-type.fish-type': ApiFishTypeFishType;
+      'api::race.race': ApiRaceRace;
     }
   }
 }

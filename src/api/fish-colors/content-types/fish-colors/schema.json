@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fish_all_colors",
+  "info": {
+    "singularName": "fish-colors",
+    "pluralName": "fish-all-colors",
+    "displayName": "FishColors",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "hexaValue": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "fish": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::fish.fish",
+      "inversedBy": "fishColors"
+    }
+  }
+}
